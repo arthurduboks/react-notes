@@ -4,6 +4,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  onSnapshot,
   orderBy,
   query,
   updateDoc,
@@ -41,5 +42,16 @@ export class NoteAPI {
       id,
       ...values,
     };
+  }
+  static syncNotes(onChange) {
+    const q = query(collection(FirebaseApp.db, "notes"));
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      const isUserOnChange = querySnapshot.metadata.hasPendingWrites;
+      if (!isUserOnChange) {
+        console.log("Not synced with notes collection. ");
+        onChange();
+      }
+    });
+    return unsub;
   }
 }
