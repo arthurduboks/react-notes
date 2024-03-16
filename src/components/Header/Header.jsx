@@ -36,7 +36,7 @@ export function Header() {
       <div className="col-xs-12 col-sm-4">
         <Logo
           onClick={() => nav("/")}
-          title="Notomatic"
+          title="ReactNote"
           subtitle={"Manage your notes"}
           image={logoSrc}
         />
